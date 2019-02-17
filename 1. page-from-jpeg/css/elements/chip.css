@@ -1,0 +1,37 @@
+.chip {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 9px;
+}
+
+.chip__icon {
+  width: 18px;
+  padding: 5px;
+}
+
+.chip--mr20 {
+    margin-right: 20px;
+}
+
+.chip__icon--purple {
+    background-color: #5A4D99;
+    fill:white;
+}
+
+.chip__icon--green {
+    background-color:#BFCC36;
+}
+
+.chip__icon--blue {
+    background-color:#1A587A;
+}
+
+.chip__text {
+    padding: 5px;
+}
+
+.chip__text--grey {
+    background-color: #f7f7f5;
+    color: #757575;
+}
+
