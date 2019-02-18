@@ -1,5 +1,6 @@
 .content {
     margin-top: -71px;
+    margin-bottom: 20px;
 }   
 
 .content__wrapper {
@@ -52,13 +53,11 @@
     margin-right: 60px;
 }
 
-
 .follow_icon {
     width: 23px;
     height: 24px;
     fill:black;
 }
-
 
 .section__internet, .section__handshake, .section__culture {
     display: flex;
@@ -88,6 +87,9 @@
     .content {
         margin-top: -36px;
     }
+    .contact__container {
+        margin-bottom: 20px;
+    }
     .content__wrapper  {
         flex-direction: column;
     }   
@@ -97,8 +99,12 @@
      .content__section--second {
         width: 100%;
      }
+     .contact__container_photo, .contact__container_link, .content__focus_items {
+        padding-top: 10px;
+     }
      .about__container {
         margin-right: 0;
+        margin-bottom: 20px;
      }
      .content__wrapper {display:table;}
      .content__section--first {display:table-header-group;}

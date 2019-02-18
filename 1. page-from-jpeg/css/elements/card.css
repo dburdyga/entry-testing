@@ -95,27 +95,35 @@
         flex-direction: column;
      }
      .card {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         margin-right: 0px; 
+     }
+     .card__content--special {
+        flex-direction: unset;
+        align-items: center;
      }
      .card__text {
         padding-top: 0px;
     }
-     .card__content {
-        flex-direction: row;
+     .card__content_second {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
      }
      .card__text--small, .card__text--normal, span, .card__main_btn {
          display: none;
      }
      .card__title{
         font-weight: normal;
+        padding: 0 0 0 10px;
+        font-size: 18px;
      }
      .card__text--big {
         float: right;
-        font-size: 21px;
+        font-size: 18px;
      }
      .card__text--grey {
-         font-size: 12px;
+         font-size: 14px;
      }
 }
 
