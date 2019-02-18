@@ -11,12 +11,12 @@
     color: #1460e2;
 }
 
-.content__section--wider {
+.content__section--first {
     width: 70%;
 }
 
 
-.content__section--tighter {
+.content__section--second {
     width: 30%;
 }
 
@@ -91,18 +91,18 @@
     .content__wrapper  {
         flex-direction: column;
     }   
-    .content__section--wider {
+    .content__section--first {
         width: 100%;
      }
-     .content__section--tighter {
+     .content__section--second {
         width: 100%;
      }
      .about__container {
         margin-right: 0;
      }
      .content__wrapper {display:table;}
-     .content__section--wider {display:table-header-group;}
-     .content__section--tighter {display:table-footer-group;}
+     .content__section--first {display:table-header-group;}
+     .content__section--second {display:table-footer-group;}
      .content__section--third {display:table-row-group;}
  }
 
