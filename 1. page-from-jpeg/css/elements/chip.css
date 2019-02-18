@@ -35,3 +35,9 @@
     color: #757575;
 }
 
+
+@media screen and (max-width: 769px) {
+    .chip {
+        margin-bottom: 10px;
+     }
+}

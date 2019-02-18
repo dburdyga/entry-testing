@@ -27,8 +27,8 @@
 }
 
 .card__image {
-    max-height: 60px; 
-    max-width: 60px; 
+    max-height: 70px; 
+    max-width: 70px; 
     border-radius: 7px;
 }
 
@@ -49,6 +49,9 @@
     margin-top: 10px;
 }
 
+.card__text {
+    padding-top: 50px;
+}
 
 .card__text--grey {
     padding-bottom: 10px;
@@ -95,11 +98,11 @@
         margin-bottom: 15px;
         margin-right: 0px; 
      }
+     .card__text {
+        padding-top: 0px;
+    }
      .card__content {
         flex-direction: row;
-     }
-     .card__text{
-        align-self: flex-end;
      }
      .card__text--small, .card__text--normal, span, .card__main_btn {
          display: none;
@@ -110,6 +113,9 @@
      .card__text--big {
         float: right;
         font-size: 21px;
+     }
+     .card__text--grey {
+         font-size: 12px;
      }
 }
 
