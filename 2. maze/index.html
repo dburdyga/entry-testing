@@ -259,6 +259,9 @@
     const cellsElements = document.querySelectorAll('.field__cell');
     const pieceElement = document.querySelector('.piece');
     const directionNames = ['up', 'right', 'down', 'left'];
+
+    let target = document.querySelector('.field__cell--target');
+
     let stepper;
 
     class Field {
@@ -277,7 +280,7 @@
             return (current - current % 10) / 10 === (next - next % 10) / 10
         }
 
-        findNextCell(currentIndex, direction) {
+            findNextCell(currentIndex, direction) {
             let nextIndex = currentIndex;
 
             switch (direction) {
@@ -320,6 +323,7 @@
         isTheWallThere(position, direction) {
             let cellIndex = position.top * 10 + position.left;
             let cell = this.cells[cellIndex];
+            console.log(cellIndex, cell);
             let nextCell = this.findNextCell(cellIndex, direction);
 
             return (
@@ -340,6 +344,7 @@
                 pieceElement.style.transform = 'rotate(' + dir * 90 + 'deg)';
             })
         };
+        
 
         let movePiece = position => {
             let top = (position.top) * 50;
@@ -460,10 +465,44 @@
         // piece.turnLeft();
     }
 
+
     function main() {
         resetField();
         escapePlan();
     }
+
+    document.onkeydown = function(e) {
+        const field = new Field();
+        switch (e.keyCode) {
+            case 37:
+                alert('left');
+                break;
+            case 38:
+                field.cells.forEach((e, index)=> {
+                    if(e === target) {
+                        let nextcell = field.findNextCell(index, 'up');
+                        console.log(nextcell.getBoundingClientRect(), 'up ');
+                        console.log(field.isTheWallThere({
+                            }, 'up '));
+                    
+                        target.classList.remove('field__cell--target');
+                        nextcell.classList.add('field__cell--target');
+                        target = nextcell;
+            
+                        console.log(field.findNextCell(index, 'up'))
+                    }
+                });
+                
+                break;
+            case 39:
+                alert('right');
+                break;
+            case 40:
+                alert('down');
+                break;
+        }
+    };
+
 
     start.addEventListener('click', main);
 
