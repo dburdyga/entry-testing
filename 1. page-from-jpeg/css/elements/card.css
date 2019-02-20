@@ -47,6 +47,7 @@
     border: none;
     font-size: 16px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .card__text {
