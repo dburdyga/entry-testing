@@ -338,13 +338,47 @@
 
         let field = new Field();
 
+        /*******************************************/
+        let isThereWay = () => {
+            const isTheWallThere = field.isTheWallThere(position, directionNames[direction]);
+            return !isTheWallThere
+        };
+ 
+        let isPrevPosition = () => {
+            const testPosition = {
+                left: position.left,
+                top: position.top
+            };
+ 
+            switch (direction) {
+                case 0:
+                    testPosition.top -= 1;
+                    break;
+                case 1:
+                    testPosition.left += 1;
+                    break;
+                case 2:
+                    testPosition.top += 1;
+                    break;
+                case 3:
+                    testPosition.left -= 1;
+                    break;
+                default:
+                    return false
+            }
+ 
+            return doPositionsMatch(testPosition, previosPosition);
+        };
+
+        /*******************************************/
+
         let rotatePiece = direction => {
             let dir = direction;
             moves.unshift(function () {
                 pieceElement.style.transform = 'rotate(' + dir * 90 + 'deg)';
             })
         };
-        
+
 
         let movePiece = position => {
             let top = (position.top) * 50;
@@ -360,6 +394,11 @@
             return pieceElement.style.top === '450px' && pieceElement.style.left === '0px';
         };
 
+        let doPositionsMatch = (position1, position2) => {
+            return (position1.left === position2.left)
+                    && (position1.top === position2.top);
+        };
+
         let direction = Math.floor(Math.random() * directionNames.length);
         let stepsCount = 0;
         let turnsCount = 0;
@@ -369,31 +408,71 @@
             top: Math.floor(Math.random() * 10)
         };
 
+        const exitPosition = {
+            left: 0,
+            top: 9
+        };
+
+        let previosPosition = {
+            left: position.left,
+            top: position.top
+        };
+
         let piecePublicApi = {
             isThereWay() {
-                const isTheWallThere = field.isTheWallThere(position, directionNames[direction]);
-                return !isTheWallThere
+                return isThereWay() && (!isPrevPosition() || this.countWays() === 1);
             },
 
-            turnLeft() {
-                turnsCount += 1;
+            turnLeft(isVirtual=false) {
+                /*******************************************/
                 direction -= 1;
                 direction = direction < 0 ? 3 : direction;
-                rotatePiece(direction);
+                if (!isVirtual) {
+                    turnsCount += 1;
+                    rotatePiece(direction);
+                }
             },
 
-            turnRight() {
-                turnsCount += 1;
+            turnRight(isVirtual=false) {
+                /*******************************************/
                 direction += 1;
                 direction = direction > 3 ? 0 : direction;
-                rotatePiece(direction);
+                if (!isVirtual) {
+                    turnsCount += 1;
+                    rotatePiece(direction);
+                }
             },
+
+            /*****************************************/
+
+            exitReached() {
+                return doPositionsMatch(position, exitPosition);
+            },
+
+            
+            countWays() {
+                let wayCount = 0;
+                for (let i = 0; i < directionNames.length; i++) {
+                    this.turnRight(true);
+                    if (isThereWay()) {
+                        wayCount++
+                    }
+                }
+                return wayCount;
+            },
+
+            /*****************************************/
 
             goForward() {
                 stepsCount += 1;
                 if (!this.isThereWay()) {
                     return false;
                 }
+
+                previosPosition = {
+                    left: position.left,
+                    top: position.top
+                };
 
                 switch (direction) {
                     case 0:
@@ -419,7 +498,9 @@
         stepper = setInterval(() => {
 
             if (isPieceOut()) {
-                piecePublicApi.amIFree();
+                result.classList.add(successModifier);
+                clearInterval(stepper);
+                console.log({stepsCount, turnsCount});
                 return;
             }
 
@@ -459,6 +540,13 @@
 
     function escapePlan() {
         const piece = createPiece();
+        while(!piece.exitReached()) {
+            if(piece.isThereWay()) {
+                piece.goForward();
+            } else {
+                piece.turnRight();
+            }
+        };
         // piece.isThereWay();
         // piece.goForward();
         // piece.turnRight();
@@ -471,39 +559,7 @@
         escapePlan();
     }
 
-    document.onkeydown = function(e) {
-        const field = new Field();
-        switch (e.keyCode) {
-            case 37:
-                alert('left');
-                break;
-            case 38:
-                field.cells.forEach((e, index)=> {
-                    if(e === target) {
-                        let nextcell = field.findNextCell(index, 'up');
-                        console.log(nextcell.getBoundingClientRect(), 'up ');
-                        console.log(field.isTheWallThere({
-                            }, 'up '));
-                    
-                        target.classList.remove('field__cell--target');
-                        nextcell.classList.add('field__cell--target');
-                        target = nextcell;
-            
-                        console.log(field.findNextCell(index, 'up'))
-                    }
-                });
-                
-                break;
-            case 39:
-                alert('right');
-                break;
-            case 40:
-                alert('down');
-                break;
-        }
-    };
-
-
+    
     start.addEventListener('click', main);
 
 </script>
